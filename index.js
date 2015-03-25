@@ -41,7 +41,7 @@ function report(options) {
     config: options.config
   };
 
-  if (options.errors.length > 0) {
+  if (options.errors.length) {
     reportErrors(errorOptions);
   } else {
     growlReports.reportSuccess(errorOptions.growler);
@@ -50,6 +50,7 @@ function report(options) {
 
 var jsHintReporter = {
   reporter: function (errors) {
+    console.log('called.');
     resolveConfig(function(config) {
       report({
         config: config,
