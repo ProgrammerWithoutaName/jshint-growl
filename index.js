@@ -50,7 +50,6 @@ function report(options) {
 
 var jsHintReporter = {
   reporter: function (errors) {
-    console.log('called.');
     resolveConfig(function(config) {
       report({
         config: config,
