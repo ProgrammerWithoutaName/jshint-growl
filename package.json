@@ -1,6 +1,6 @@
 {
   "name": "jshint-growl",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "JSHint reporter to make growly notifications",
   "main": "index.js",
   "scripts": {
