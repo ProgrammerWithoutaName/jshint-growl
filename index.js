@@ -8,7 +8,9 @@ growlReports = require('./lib/growlReports');
 
 function buildGrowler(config) {
   var growler = new Growler(config);
-  notificationDefinitions.forEach(growler.addNotificationType);
+  notificationDefinitions.types.forEach(function(type) {
+    growler.addNotificationType(type);
+  });
   return growler;
 }
 
@@ -38,7 +40,7 @@ function report(options) {
     errors: options.errors,
     config: options.config
   };
-  
+
   if (options.errors.length > 0) {
     reportErrors(errorOptions);
   } else {
