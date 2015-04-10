@@ -1,10 +1,10 @@
 'use strict';
-var Growler, notificationDefinitions, resolveConfig, growlReports;
+var Growler, notificationDefinitions, resolveConfig, errorReporter;
 
 Growler = require('./lib/growler');
 notificationDefinitions = require('./lib/notificationDefinitions');
 resolveConfig = require('./lib/resolveConfig');
-growlReports = require('./lib/growlReports');
+errorReporter = require('./lib/errorReporter');
 
 function buildGrowler(config) {
   var growler = new Growler(config);
@@ -12,24 +12,6 @@ function buildGrowler(config) {
     growler.addNotificationType(type);
   });
   return growler;
-}
-
-
-function reportErrors(options) {
-  options.errors.forEach(function(result) {
-    var errorOptions = {
-      error: result.error,
-      file: result.file,
-      basePath: options.config.basePath,
-      growler: options.growler
-    };
-
-    if ((result.error.code && result.error.code[0] === 'E')) {
-      growlReports.reportError(errorOptions);
-    } else {
-      growlReports.reportWarning(errorOptions);
-    }
-  });
 }
 
 function report(options) {
@@ -42,9 +24,7 @@ function report(options) {
   };
 
   if (options.errors.length) {
-    reportErrors(errorOptions);
-  } else {
-    growlReports.reportSuccess(errorOptions.growler);
+    errorReporter.reportErrors(errorOptions);
   }
 }
 
